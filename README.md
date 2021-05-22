@@ -28,17 +28,17 @@ const NewsList = ({ category }) => {
 ## 프로젝트 실행하기
 
 ```bash
-yarn start
+npm run start
 ```
 
 ## 프로젝트 빌드하기
 
 ```bash
-yarn build
+npm run build
 ```
 
 ## 프로젝트 배포하기
 
 ```bash
-yarn deploy
+npm run deploy
 ```

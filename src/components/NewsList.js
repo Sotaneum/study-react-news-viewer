@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import NewsItem from './NewsItem';
 import axios from 'axios';
 import usePromise from '../lib/usePromise';
+import { ERROR_MESSAGES } from '../constants';
 
 const NewsListBlock = styled.div`
   box-sizing: border-box;
@@ -21,21 +22,37 @@ const NewsList = ({ category }) => {
   const [loading, response, error] = usePromise(() => {
     const query = category === 'all' ? '' : `&category=${category}`;
     const apiKey = 'API KEY INSERT HERE';
-    return axios.get(
-      `https://newsapi.org/v2/top-headlines?country=kr${query}&apiKey=${apiKey}`,
-    );
+    try {
+      return axios.get(
+        `https://newsapi.org/v2/top-headlines?country=kr${query}&apiKey=${apiKey}`,
+      );
+    } catch (e) {
+      return [null, e.response, e.error];
+    }
   }, [category]);
 
   if (loading) {
     return <NewsListBlock>대기 중 ...</NewsListBlock>;
   }
 
-  if (!response) {
-    return null;
+  if (error) {
+    const code = error?.response?.data?.code || 'notFountError';
+    return (
+      <NewsListBlock>
+        {ERROR_MESSAGES[code].split('\n').map((msg) => {
+          return (
+            <>
+              <br />
+              {msg}
+            </>
+          );
+        })}
+      </NewsListBlock>
+    );
   }
 
-  if (error) {
-    return <NewsListBlock>에러 발생!</NewsListBlock>;
+  if (!response) {
+    return null;
   }
 
   const { articles } = response.data;
