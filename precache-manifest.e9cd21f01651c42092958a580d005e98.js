@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "01d1551945024293d21129c089e4c081",
+    "revision": "fa8d26aa4f600cad551d7a3e9e903405",
     "url": "/study-react-news-viewer/index.html"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/study-react-news-viewer/static/js/2.c7468c6d.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "39182a9605b7d3fc61f4",
-    "url": "/study-react-news-viewer/static/js/main.1eeeee02.chunk.js"
+    "revision": "9d8eb5f65a156432323a",
+    "url": "/study-react-news-viewer/static/js/main.c0ba2a22.chunk.js"
   },
   {
     "revision": "bfa2ea9a9980f1e1b00a",
