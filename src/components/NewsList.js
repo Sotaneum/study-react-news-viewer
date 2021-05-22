@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
+
 import NewsItem from './NewsItem';
-import axios from 'axios';
-import usePromise from '../lib/usePromise';
-import { ERROR_MESSAGES } from '../constants';
+
+import useNewsAPI from '../hooks/useNewsAPI';
+
+import { ERROR_MESSAGES, NOT_FOUNT_ERROR } from '../constants';
 
 const NewsListBlock = styled.div`
   box-sizing: border-box;
@@ -19,50 +21,36 @@ const NewsListBlock = styled.div`
 `;
 
 const NewsList = ({ category }) => {
-  const [loading, response, error] = usePromise(() => {
-    const query = category === 'all' ? '' : `&category=${category}`;
-    const apiKey = 'API KEY INSERT HERE';
-    try {
-      return axios.get(
-        `https://newsapi.org/v2/top-headlines?country=kr${query}&apiKey=${apiKey}`,
-      );
-    } catch (e) {
-      return [null, e.response, e.error];
-    }
-  }, [category]);
+  const [loading, response, error] = useNewsAPI(category);
 
   if (loading) {
     return <NewsListBlock>대기 중 ...</NewsListBlock>;
   }
 
   if (error) {
-    const code = error?.response?.data?.code || 'notFountError';
+    const code = error?.response?.data?.code || NOT_FOUNT_ERROR;
     return (
       <NewsListBlock>
-        {ERROR_MESSAGES[code].split('\n').map((msg) => {
+        {ERROR_MESSAGES[code].split('\n').map((msg, idx) => {
           return (
-            <>
+            <Fragment key={idx}>
               <br />
               {msg}
-            </>
+            </Fragment>
           );
         })}
       </NewsListBlock>
     );
   }
 
-  if (!response) {
-    return null;
-  }
-
-  const { articles } = response.data;
-
-  return (
+  return response ? (
     <NewsListBlock>
-      {articles.map((article) => (
+      {response?.data?.articles.map((article) => (
         <NewsItem key={article.url} article={article} />
       ))}
     </NewsListBlock>
+  ) : (
+    <></>
   );
 };
 
