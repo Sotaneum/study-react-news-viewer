@@ -16,7 +16,7 @@ npm install --registry https://registry.npmjs.com
 
 - API Key를 교체합니다.
 
-`./src/constants/apiKey.js` 파일에서 `API KEY INSERT HERE` 부분을 `https://newsapi.org/` 페이지에 로그이해서 받은 `key` 값으로 교체합니다.
+`./src/constants/apiKey.js` 파일에서 `API KEY INSERT HERE` 부분을 `https://newsapi.org/` 페이지에 로그해서 받은 `key` 값으로 교체합니다.
 
 ```js
 export const NEWSAPI_ORG_API = 'API KEY INSERT HERE';
