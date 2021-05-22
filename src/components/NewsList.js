@@ -22,7 +22,7 @@ const NewsList = ({ category }) => {
     const query = category === 'all' ? '' : `&category=${category}`;
     const apiKey = 'API KEY INSERT HERE';
     return axios.get(
-      `http://newsapi.org/v2/top-headlines?country=kr${query}&apiKey=${apiKey}`,
+      `https://newsapi.org/v2/top-headlines?country=kr${query}&apiKey=${apiKey}`,
     );
   }, [category]);
 
